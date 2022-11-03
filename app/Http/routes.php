@@ -14,3 +14,13 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+/*all task route*/
+Route::get('/task',function (){
+    return view('tasks.index');
+})->name('task.index');
+
+/*create task route*/
+Route::get('/task/create',function (){
+    return view('tasks.create');
+})->name('task.create');
