@@ -28,3 +28,21 @@ Route::get('/task',function (){
 Route::get('/task/create',function (){
     return view('tasks.create');
 })->name('task.create');
+
+Route::post('/task',function (Request $request){
+    //$name=$request->name;
+    //dd($name);
+    $validator = Validator::make($request->all(), [
+        'name' => 'required|max:255',
+    ]);
+
+    if ($validator->fails()) {
+        return redirect(route('task.create'))
+            ->withInput()
+            ->withErrors($validator);
+    }
+    $task = new Task();
+    $task->name =$request->name;
+    $task->save();
+    return redirect(route('task.index'));
+})->name('task.store');
